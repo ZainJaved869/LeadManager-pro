@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadManager Pro – Documentation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <h1>LeadManager<span>Pro</span></h1>
+            <p>AI-Powered CRM &amp; Sales Management Platform</p>
+            <p class="version">Documentation v1.0</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+                <li><a href="#admin">Admin Panel</a></li>
+                <li><a href="#user">User Dashboard</a></li>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#api">API Integrations</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#changelog">Changelog</a></li>
+            </ul>
+        </nav>
+
+        <main>
+
+            <!-- ===================== OVERVIEW ===================== -->
+            <section id="overview">
+                <h2>1. Overview</h2>
+                <p><strong>LeadManager Pro</strong> is a modern, multi‑tenant CRM built with <strong>Laravel 12</strong>. It helps sales teams manage leads, pipelines, customers, tasks, and communications – all powered by AI (Groq) and backed by a full subscription system.</p>
+                <ul>
+                    <li>✅ Multi‑Tenant Architecture</li>
+                    <li>✅ Lead Management (CRUD + Import/Export + Notes + Attachments)</li>
+                    <li>✅ Kanban Pipeline (drag‑and‑drop)</li>
+                    <li>✅ AI Integration (Groq) – Email / Follow‑up / Proposal / Summary</li>
+                    <li>✅ WhatsApp Integration</li>
+                    <li>✅ Email Marketing</li>
+                    <li>✅ Task Management + Reminders + Calendar</li>
+                    <li>✅ Customer Management (Companies + Contacts + Communication History)</li>
+                    <li>✅ Analytics Dashboard (Chart.js)</li>
+                    <li>✅ Subscription System (Free, Basic, Pro, Enterprise)</li>
+                    <li>✅ Admin Panel</li>
+                </ul>
+            </section>
+
+            <!-- ===================== REQUIREMENTS ===================== -->
+            <section id="requirements">
+                <h2>2. System Requirements</h2>
+                <ul>
+                    <li><strong>PHP:</strong> 8.1 or higher (8.2+ recommended)</li>
+                    <li><strong>Laravel:</strong> 12.x</li>
+                    <li><strong>Database:</strong> MySQL 5.7+ / MariaDB 10.4+</li>
+                    <li><strong>Extensions:</strong> BCMath, Ctype, Fileinfo, JSON, Mbstring, OpenSSL, PDO, Tokenizer, XML, cURL</li>
+                    <li><strong>Memory:</strong> 256MB+</li>
+                    <li><strong>Storage:</strong> 100MB+</li>
+                </ul>
+            </section>
+
+            <!-- ===================== INSTALLATION ===================== -->
+            <section id="installation">
+                <h2>3. Installation Guide</h2>
+
+                <h3>Step 1: Upload Files</h3>
+                <p>Upload all package files to your hosting account using cPanel File Manager or FTP.</p>
+
+                <h3>Step 2: Create Database</h3>
+                <p>Create a new MySQL database and database user.</p>
+
+                <h3>Step 3: Configure Environment File</h3>
+                <p>Rename <code>.env.example</code> to <code>.env</code>.</p>
+                <p>Update database credentials:</p>
+                <pre><code>DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password</code></pre>
+                <p>Update application URL:</p>
+                <pre><code>APP_URL=https://yourdomain.com</code></pre>
+
+                <h3>Step 4: Install Dependencies</h3>
+                <pre><code>composer install --optimize-autoloader --no-dev</code></pre>
+
+                <h3>Step 5: Generate Application Key</h3>
+                <pre><code>php artisan key:generate</code></pre>
+
+                <h3>Step 6: Run Database Migration</h3>
+                <pre><code>php artisan migrate --seed</code></pre>
+                <div class="note">
+                    <strong>💡 Note:</strong> If you encounter foreign key errors, run the complete SQL schema (provided in the package) first, then run <code>php artisan migrate --force</code> to mark migrations as complete.
+                </div>
+
+                <h3>Step 7: Create Storage Link</h3>
+                <pre><code>php artisan storage:link</code></pre>
+
+                <h3>Step 8: Optimize Application</h3>
+                <pre><code>php artisan config:cache
+php artisan route:cache
+php artisan view:cache</code></pre>
+
+                <h3>Step 9: Configure Permissions</h3>
+                <pre><code>chmod -R 775 storage
+chmod -R 775 bootstrap/cache</code></pre>
+
+                <h3>Step 10: Configure Cron Job</h3>
+                <pre><code>* * * * * php /path-to-project/artisan schedule:run >> /dev/null 2>&1</code></pre>
+
+                <h3>Step 11: Access Application</h3>
+                <p><strong>User Login:</strong> <code>https://yourdomain.com/login</code></p>
+                <p><strong>Admin Login:</strong> <code>https://yourdomain.com/admin/login</code></p>
+
+                <div class="note">
+                    <strong>🔑 Default Admin Credentials:</strong><br>
+                    Email: <code>admin@leadmanager.com</code><br>
+                    Password: <code>password</code>
+                </div>
+
+                <p><strong>Installation Complete!</strong> Your CRM SaaS application is now ready to use.</p>
+            </section>
+
+            <!-- ===================== CONFIGURATION ===================== -->
+            <section id="configuration">
+                <h2>4. Configuration</h2>
+                <p>Key environment variables in <code>.env</code>:</p>
+                <table>
+                    <thead>
+                        <tr><th>Variable</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>APP_URL</code></td><td>Your application URL</td></tr>
+                        <tr><td><code>DB_*</code></td><td>Database credentials</td></tr>
+                        <tr><td><code>MAIL_*</code></td><td>Mail settings (SMTP)</td></tr>
+                        <tr><td><code>GROQ_API_KEY</code></td><td>Groq API key for AI features</td></tr>
+                        <tr><td><code>WHATSAPP_*</code></td><td>WhatsApp Cloud API credentials</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ===================== ADMIN PANEL ===================== -->
+            <section id="admin">
+                <h2>5. Admin Panel</h2>
+                <p>Access at: <code>https://yourdomain.com/admin/login</code></p>
+                <p>Features:</p>
+                <ul>
+                    <li>Dashboard – overview stats &amp; revenue chart</li>
+                    <li>Users – manage all users across tenants</li>
+                    <li>Tenants – manage companies (active/suspended/trial)</li>
+                    <li>Subscriptions – view and manage subscriptions</li>
+                    <li>Revenue – reports by tenant and monthly</li>
+                    <li>System Settings – app name, URL, timezone, currency, maintenance mode</li>
+                    <li>AI Settings – provider and API keys</li>
+                </ul>
+            </section>
+
+            <!-- ===================== USER DASHBOARD ===================== -->
+            <section id="user">
+                <h2>6. User Dashboard</h2>
+                <p>Main navigation sidebar includes:</p>
+                <ul>
+                    <li><strong>Dashboard</strong> – overview stats &amp; charts</li>
+                    <li><strong>Leads</strong> – manage all leads</li>
+                    <li><strong>Pipeline</strong> – Kanban board</li>
+                    <li><strong>Customers</strong> – companies and contacts</li>
+                    <li><strong>Tasks</strong> – task management</li>
+                    <li><strong>Analytics</strong> – advanced reports</li>
+                    <li><strong>AI Assistant</strong> – AI‑powered content generation</li>
+                    <li><strong>Calendar</strong> – task calendar view</li>
+                    <li><strong>Subscription</strong> – plans and invoices</li>
+                    <li><strong>Profile</strong> – user profile settings</li>
+                    <li><strong>Settings</strong> – company settings</li>
+                </ul>
+            </section>
+
+            <!-- ===================== MODULES ===================== -->
+            <section id="modules">
+                <h2>7. Modules</h2>
+                <h3>🔹 Leads</h3>
+                <ul>
+                    <li>Add / Edit / Delete leads</li>
+                    <li>Import from Excel/CSV</li>
+                    <li>Export to Excel</li>
+                    <li>Add notes and attachments</li>
+                    <li>Assign to users</li>
+                </ul>
+                <h3>🔹 Pipeline (Kanban)</h3>
+                <ul>
+                    <li>Drag‑and‑drop leads between stages</li>
+                    <li>Stage management (add, edit, delete, reorder)</li>
+                    <li>Unassigned leads column</li>
+                </ul>
+                <h3>🔹 AI Assistant</h3>
+                <ul>
+                    <li>Email writer – generate sales emails</li>
+                    <li>Follow‑up generator</li>
+                    <li>Proposal writer</li>
+                    <li>Lead summary</li>
+                </ul>
+                <h3>🔹 WhatsApp</h3>
+                <ul>
+                    <li>Send text messages</li>
+                    <li>Use pre‑defined templates</li>
+                    <li>Message history</li>
+                    <li>Webhook support</li>
+                </ul>
+                <h3>🔹 Email Marketing</h3>
+                <ul>
+                    <li>Create HTML templates</li>
+                    <li>Build campaigns</li>
+                    <li>Bulk email sending</li>
+                    <li>Open &amp; click tracking</li>
+                </ul>
+                <h3>🔹 Tasks</h3>
+                <ul>
+                    <li>CRUD operations</li>
+                    <li>Priority &amp; status</li>
+                    <li>Reminders (email + in‑app)</li>
+                    <li>Calendar view</li>
+                    <li>Notifications</li>
+                </ul>
+                <h3>🔹 Customers</h3>
+                <ul>
+                    <li>Companies (CRUD)</li>
+                    <li>Contacts (CRUD)</li>
+                    <li>Communication history (calls, emails, meetings, notes)</li>
+                </ul>
+                <h3>🔹 Analytics</h3>
+                <ul>
+                    <li>Leads by stage (bar chart)</li>
+                    <li>Revenue over time (line chart)</li>
+                    <li>Team performance (bar chart)</li>
+                    <li>Task summary cards</li>
+                </ul>
+                <h3>🔹 Subscription</h3>
+                <ul>
+                    <li>Plans: Free, Basic, Pro, Enterprise</li>
+                    <li>Checkout with trial periods</li>
+                    <li>Invoice history</li>
+                    <li>Cancel / Resume subscription</li>
+                </ul>
+            </section>
+
+            <!-- ===================== API INTEGRATIONS ===================== -->
+            <section id="api">
+                <h2>8. API Integrations</h2>
+                <h3>Groq (AI)</h3>
+                <ul>
+                    <li>Requires <code>GROQ_API_KEY</code> in <code>.env</code></li>
+                    <li>Supported models: <code>llama3-8b-8192</code>, <code>llama3-70b-8192</code>, <code>mixtral-8x7b-32768</code></li>
+                </ul>
+                <h3>WhatsApp Cloud API</h3>
+                <ul>
+                    <li>Requires <code>WHATSAPP_ACCESS_TOKEN</code> and <code>WHATSAPP_PHONE_NUMBER_ID</code></li>
+                    <li>Webhook URL: <code>https://yourdomain.com/api/whatsapp/webhook</code></li>
+                    <li>Subscribe to <code>messages</code> and <code>message_deliveries</code> events</li>
+                </ul>
+            </section>
+
+            <!-- ===================== TROUBLESHOOTING ===================== -->
+            <section id="troubleshooting">
+                <h2>9. Troubleshooting</h2>
+                <ul>
+                    <li><strong>500 Internal Server Error:</strong> Check <code>storage/logs/laravel.log</code>. Run <code>composer dump-autoload</code> and <code>php artisan config:clear</code>.</li>
+                    <li><strong>Table not found:</strong> Run <code>php artisan migrate</code> or re‑import the full SQL schema.</li>
+                    <li><strong>AI not working:</strong> Verify <code>GROQ_API_KEY</code> is correct and clear config cache.</li>
+                    <li><strong>Notifications not showing:</strong> Run <code>php artisan reminders:send</code> manually to test.</li>
+                    <li><strong>404 on Export/Import:</strong> Ensure custom routes are placed <strong>before</strong> <code>Route::resource('leads')</code>.</li>
+                    <li><strong>Logo not showing:</strong> Make sure <code>logo.png</code> exists in <code>public/</code> and permissions are correct.</li>
+                </ul>
+            </section>
+
+            <!-- ===================== SUPPORT ===================== -->
+            <section id="support">
+                <h2>10. Support</h2>
+                <p>For technical support, contact <a href="mailto:support@leadmanager.com">support@leadmanager.com</a>. Please include:</p>
+                <ul>
+                    <li>Your server environment (PHP version, OS)</li>
+                    <li>Relevant error logs (<code>storage/logs/laravel.log</code>)</li>
+                    <li>Steps to reproduce the issue</li>
+                </ul>
+            </section>
+
+            <!-- ===================== CHANGELOG ===================== -->
+            <section id="changelog">
+                <h2>11. Changelog</h2>
+                <p><strong>v1.0.0</strong> – Initial Release</p>
+                <ul>
+                    <li>Full CRM with Multi‑Tenancy</li>
+                    <li>Lead Management + Pipeline</li>
+                    <li>AI Integration (Groq)</li>
+                    <li>WhatsApp &amp; Email Marketing</li>
+                    <li>Tasks, Customers, Analytics</li>
+                    <li>Subscription System &amp; Admin Panel</li>
+                </ul>
+            </section>
+
+            <!-- ===================== LICENSE ===================== -->
+            <section id="license">
+                <h2>12. License</h2>
+                <p>This product is licensed under the <strong>CodeCaster Standard License</strong>. You may use it for a single project only. Redistribution is prohibited.</p>
+            </section>
+
+            <!-- ===================== CREDITS ===================== -->
+            <section id="credits">
+                <h2>13. Credits</h2>
+                <ul>
+                    <li><strong>Framework:</strong> <a href="https://laravel.com">Laravel 12</a></li>
+                    <li><strong>Frontend:</strong> Tailwind CSS, Chart.js</li>
+                    <li><strong>AI:</strong> <a href="https://groq.com">Groq</a></li>
+                    <li><strong>Icons:</strong> Font Awesome</li>
+                </ul>
+            </section>
+
+        </main>
+
+        <footer>
+            &copy; 2026 LeadManager Pro. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
